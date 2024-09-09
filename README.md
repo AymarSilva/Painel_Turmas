@@ -1,1 +1,2 @@
-# Painel_Turmas
+# Painel de Aulas
+## Linguagens: ReactJS, NodeJS, CSS
