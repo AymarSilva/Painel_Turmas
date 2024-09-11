@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import styles from './Relogio.module.css';
 
 // Stating relogio function
 export default function Relogio() {
@@ -27,7 +28,7 @@ export default function Relogio() {
     };
   return (
     //Returning a html tag with the specifically hours has been defined
-    <h2>
+    <h2 className={styles.relogio}>
         {hora}
     </h2>
   );
