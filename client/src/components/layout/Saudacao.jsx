@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from './Saudacao.module.css';
 
 //Creating a welcome message
 export default function Saudacao() {
@@ -47,7 +48,7 @@ export default function Saudacao() {
     }
   return (
     //Calling the state inside a header 1
-    <h1>
+    <h1 className={styles.saudacao}>
         {saudacao}
     </h1>
   );
