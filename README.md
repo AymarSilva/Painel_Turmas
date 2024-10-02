@@ -1,2 +1,2 @@
 # Painel de Aulas
-## Linguagens: ReactJS, NodeJS, CSS
+## Linguagens: ReactJS, NodeJS, CSS, BootStrap
