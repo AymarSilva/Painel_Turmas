@@ -5,6 +5,8 @@ import AbreviaUC from "./AbreviaUC";
 import AbreviaInst from "./AbreviaInst";
 import AbreviaAmb from "./AbreviaAmb";
 
+import styles from "./TabelaAulas.module.css";
+
 function TabelaAulas() {
     const [aulas,setAulas] = useState([]);
 
@@ -28,13 +30,13 @@ function TabelaAulas() {
             const consulta = await resposta.json();
             setAulas(consulta);
         } catch (error) {
-            
+            console.log("erro: ",error)
         }
     };
 
   return (
-    <div>
-        <table>
+    <div className={styles.aulas}>
+        <table className="tabelaAulas">
             <thead>
                 <tr>
                     <th>Início</th>
@@ -59,8 +61,7 @@ function TabelaAulas() {
                             </tr>
                         )  
                     })
-                }
-                    
+                } 
             </tbody>            
         </table>
     </div>

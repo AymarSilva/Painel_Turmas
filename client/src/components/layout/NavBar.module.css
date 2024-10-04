@@ -1,0 +1,7 @@
+.menu_navegacao a{
+    color: #e1e2e3;
+    transition: 0.5s ease-in;
+}
+.menu_navegacao a:hover{
+    color: hsl(20,100%,70%);
+}
