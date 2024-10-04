@@ -5,6 +5,7 @@ import GestaoUser from './components/pages/GestaoUser'
 import AdicaoCSV from './components/pages/AdicaoCSV';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import CadastroAulas from './components/pages/CadastroAulas';
+import GestaoAulas from './components/pages/GestaoAulas';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/usuarios' element={ <GestaoUser /> }></Route>
         <Route path='/csv' element={ <AdicaoCSV /> }></Route>
         <Route path='/cadastrarAula' element={ <CadastroAulas /> }></Route>
+        <Route path='/gerirAula' element={<GestaoAulas />}></Route>
       </Routes>
     </Router>
   );

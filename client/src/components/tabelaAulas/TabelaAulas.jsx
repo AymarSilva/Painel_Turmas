@@ -7,65 +7,71 @@ import AbreviaAmb from "./AbreviaAmb";
 
 import styles from "./TabelaAulas.module.css";
 
-function TabelaAulas() {
-    const [aulas,setAulas] = useState([]);
+function TabelaAulas({ tipo }) {
+    const [aulas, setAulas] = useState([]);
 
     useEffect(() => {
         InserirAulas();
-    },[]);
+    }, []);
 
     async function InserirAulas() {
         try {
-            const resposta = await fetch('http://localhost:5000/aulas',{
+            const resposta = await fetch('http://localhost:5000/aulas', {
                 method: 'GET',
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 }
             });
 
-            if(!resposta){
+            if (!resposta) {
                 throw new Error("Erro ao buscar aulas");
             }
 
             const consulta = await resposta.json();
             setAulas(consulta);
         } catch (error) {
-            console.log("erro: ",error)
+            console.log("erro: ", error)
         }
     };
 
-  return (
-    <div className={styles.aulas}>
-        <table className="tabelaAulas">
-            <thead>
-                <tr>
-                    <th>Início</th>
-                    <th>Fim</th>
-                    <th>Turma</th>
-                    <th>Instrutor</th>
-                    <th>Unidade Curricular</th>
-                    <th>Ambiente</th>
-                </tr>
-            </thead>
-            <tbody>
-                {          
-                    aulas.map((aula) => {
-                        return(
-                           <tr key={aula.id}>
+    return (
+        <div className={`${styles.aulas}
+    ${tipo === 'edit' ? styles.edit : ''}`}>
+            <table className="tabelaAulas">
+                <thead>
+                    <tr>
+                        <th>Início</th>
+                        <th>Fim</th>
+                        <th>Turma</th>
+                        <th>Instrutor</th>
+                        <th>Unidade Curricular</th>
+                        <th>Ambiente</th>
+                        {tipo === 'edit' &&
+                            <th>Ações</th>}
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        aulas.map((aula) => (
+                            <tr key={aula.id}>
                                 <td><AbreviaData data={aula.data_hora_inicio} /></td>
                                 <td><AbreviaData data={aula.data_hora_fim} /></td>
                                 <td>{aula.turma}</td>
                                 <td><AbreviaInst data={aula.instrutor} /></td>
-                                <td><AbreviaUC data={aula.unidade_curricular}/></td>
+                                <td><AbreviaUC data={aula.unidade_curricular} /></td>
                                 <td><AbreviaAmb data={aula.ambiente} /></td>
+                                {tipo === 'edit' && 
+                                    <td>
+                                         <button className="btn btn-warning">Edit</button>
+                                         <button className="btn btn-danger ms-2">Remove</button>
+                                    </td>                 
+                                }    
                             </tr>
-                        )  
-                    })
-                } 
-            </tbody>            
-        </table>
-    </div>
-  )
+                        ))}                    
+                </tbody>
+            </table>
+        </div>
+    )
 }
 
 export default TabelaAulas

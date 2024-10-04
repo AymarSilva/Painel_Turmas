@@ -4,8 +4,10 @@ import NavBar from '../layout/NavBar'
 export default function AdicaoCSV() {
   return (
     <>
-        <NavBar />
-        Import csv 
+      <NavBar></NavBar>
+      <div>
+        Importar CSV
+      </div>
     </>
-  ); 
-};
+  )
+}

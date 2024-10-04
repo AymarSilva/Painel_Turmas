@@ -5,3 +5,9 @@
 body{
   font-family: 'Roboto', 'sans-serif';
 }
+.active{
+  color: #fff !important;
+  font-weight: bold;
+  border-bottom: 1px solid white !important;
+  transition: 0.1s ease-in;
+}

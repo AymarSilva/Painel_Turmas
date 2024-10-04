@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './NavBar.module.css';
-
+import { NavLink } from 'react-router-dom';
+ 
 function NavBar() {
   return (
     <div className={`bg-primary ${styles.menu_navegacao}`}>
@@ -13,9 +14,10 @@ function NavBar() {
             </button>
             <div id='menu' className='collapse navbar-collapse text-center'>
                 <ul className='navbar-nav mx-auto'>
-                    <li className='navbar-item'><a className='nav-link' href="">Inicio</a></li>
-                    <li className='navbar-item'><a className='nav-link' href="">Gerir Usuários</a></li>
-                    <li className='navbar-item'><a className='nav-link' href="">Import CSV</a></li>
+                    <li className='navbar-item'><NavLink className='nav-link' to="/">Inicio</NavLink></li>
+                    <li className='navbar-item'><NavLink className='nav-link' to="/Usuarios">Gerir Usuários</NavLink></li>
+                    <li className='navbar-item'><NavLink className='nav-link' to="/csv">Import CSV</NavLink></li>
+                    <li className='navbar-item'><NavLink className='nav-link' to="/cadastrarAula">Gerir Aulas</NavLink></li>
                 </ul>
             </div>
         </nav>
