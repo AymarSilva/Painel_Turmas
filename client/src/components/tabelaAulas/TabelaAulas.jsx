@@ -4,6 +4,7 @@ import AbreviaData from "./AbreviaData";
 import AbreviaUC from "./AbreviaUC";
 import AbreviaInst from "./AbreviaInst";
 import AbreviaAmb from "./AbreviaAmb";
+import { Link } from 'react-router-dom';
 
 import styles from "./TabelaAulas.module.css";
 
@@ -34,9 +35,29 @@ function TabelaAulas({ tipo }) {
         }
     };
 
+    async function deletarAulas(id) {
+        try {
+            const resposta = await fetch(`http://localhost:5000/aulas/${id}`,{
+                method: 'DELETE',
+                headers:{
+                    'Content-Type' : 'application/json'
+                }
+            });
+        if (!resposta.ok) {
+            throw new Error("Erro ao deletar aula"), JSON.stringify(resposta)
+        }
+        else{
+            setAulas(aulas.filter(aula => aula.id !== id));
+            alert("Aula deletada");
+        }
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     return (
         <div className={`${styles.aulas}
-    ${tipo === 'edit' ? styles.edit : ''}`}>
+    ${tipo === 'edit' ? `container ${styles.edit}` : ''}`}>
             <table className="tabelaAulas">
                 <thead>
                     <tr>
@@ -58,12 +79,15 @@ function TabelaAulas({ tipo }) {
                                 <td><AbreviaData data={aula.data_hora_fim} /></td>
                                 <td>{aula.turma}</td>
                                 <td><AbreviaInst data={aula.instrutor} /></td>
-                                <td><AbreviaUC data={aula.unidade_curricular} /></td>
+                                <td><AbreviaUC data={aula.uniCurricular} /></td>
                                 <td><AbreviaAmb data={aula.ambiente} /></td>
                                 {tipo === 'edit' && 
                                     <td>
-                                         <button className="btn btn-warning">Edit</button>
-                                         <button className="btn btn-danger ms-2">Remove</button>
+                                         <Link to={`/editarAula/${aula.id}`} className={`btn btn-warning ${styles.bot}`}>Edit</Link>
+                                         <button
+                                         className="btn btn-danger ms-2"
+                                         onClick={ () => deletarAulas(aula.id) }
+                                         >Remove</button>
                                     </td>                 
                                 }    
                             </tr>

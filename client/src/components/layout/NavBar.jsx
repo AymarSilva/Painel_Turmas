@@ -17,7 +17,7 @@ function NavBar() {
                     <li className='navbar-item'><NavLink className='nav-link' to="/">Inicio</NavLink></li>
                     <li className='navbar-item'><NavLink className='nav-link' to="/Usuarios">Gerir Usuários</NavLink></li>
                     <li className='navbar-item'><NavLink className='nav-link' to="/csv">Import CSV</NavLink></li>
-                    <li className='navbar-item'><NavLink className='nav-link' to="/cadastrarAula">Gerir Aulas</NavLink></li>
+                    <li className='navbar-item'><NavLink className='nav-link' to="/gerirAula">Gerir Aulas</NavLink></li>
                 </ul>
             </div>
         </nav>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function FormAula() {
-    const [data, setData] = useState({
+export default function FormAula({ titulo, textoBotao, handleSubmit, id }) {
+
+    const [aula, setAula] = useState({
         date: '',
         horaInicio: '',
         horaFim: '',
@@ -9,77 +10,73 @@ export default function FormAula() {
         instrutor: '',
         uniCurricular: '',
         ambiente: '',
-        infoAulas: {}
+        chave: null,
     })
-
-    async function cadastrarAula(e) {
-        e.preventDefault(); //to not rerender the page
-        const infoAula = {
-            data: data.date,
-            data_hora_inicio: data.horaInicio,
-            data_hora_fim: data.horaFim,
-            turma: data.turma,
-            instrutor: data.instrutor,
-            unidade_curricular: data.uniCurricular,
-            ambiente: data.ambiente,
-            chave: null
-        }
-
-        try {
-            const resposta = await fetch('http://localhost:5000/aulas', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(infoAula)
-            });
-
-            if (!resposta.ok) {
-                console.log("Erro ao cadastrar")
-            } else {
-                alert('Aula cadastrada com sucesso');
-            };
-
-        } catch (error) {
-            console.log(error);
-        }
-
-        console.log("data.date: ", data.date);
-        // console.log(dataAula,horaInicio,horaInicio,horaFim,turma,instrutor);
-    };
 
     function onChange(tipo) {
         return (e) => (
-            setData((prev) => ({ ...prev, [tipo]: e.target.value }))
+            setAula((prev) => ({ ...prev, [tipo]: e.target.value }))
         )
-    }
+    };
+
+    function submit(e) {
+        e.preventDefault();
+        handleSubmit(aula)
+    };
+
+    useEffect(() => {
+        if (id){
+            baixarAula(id)
+        }
+    }, []);
+        
+
+    async function baixarAula(id) {
+        try {
+            const resposta = await fetch(`http://localhost:5000/aulas/${id}`,{
+                method: 'GET',
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            });
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar aula");
+            }else{
+                console.log(JSON.stringify(resposta));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <>
             <div className='container col-sm-12 col-md-6 col-lg-3 mt-3'>
-                <h2 className='text-center'>Cadastro Aula</h2>
-                <form onSubmit={cadastrarAula}>
+                <h2 className='text-center'>{ titulo }</h2>
+                <form onSubmit={ submit }>
                     <label htmlFor="" className="form-label">Data:</label>
-                    <input type="date" className="form-control" value={data.date} onChange={onChange('date')} />
+                    <input type="date" className="form-control" value={aula.date} onChange={onChange('date')} />
 
                     <label htmlFor="" className="form-label">Hora Inicio:</label>
-                    <input type="time" className="form-control" name='' id='' value={data.horaInicio} onChange={onChange('horaInicio')} />
+                    <input type="time" className="form-control" name='' id='' value={aula.horaInicio} onChange={onChange('horaInicio')} />
 
                     <label htmlFor="" className="form-label">Hora Fim:</label>
-                    <input type="time" className="form-control" value={data.horaFim} onChange={onChange('horaFim')} />
+                    <input type="time" className="form-control" value={aula.horaFim} onChange={onChange('horaFim')} />
 
                     <label htmlFor="" className="form-label">Turma:</label>
-                    <input type="text" className="form-control" value={data.turma} onChange={onChange('turma')} />
+                    <input type="text" className="form-control" value={aula.turma} onChange={onChange('turma')} />
 
                     <label htmlFor="" className="form-label">Instrutor:</label>
-                    <input type="text" className="form-control" value={data.instrutor} onChange={onChange('instrutor')} />
+                    <input type="text" className="form-control" value={aula.instrutor} onChange={onChange('instrutor')} />
 
                     <label htmlFor="" className="form-label">Unidade Curricular:</label>
-                    <input type="text" className="form-control" value={data.uniCurricular} onChange={onChange('uniCurricular')} />
+                    <input type="text" className="form-control" value={aula.uniCurricular} onChange={onChange('uniCurricular')} />
 
                     <label htmlFor="" className="form-label">Ambiente:</label>
-                    <input type="text" className="form-control" value={data.ambiente} onChange={onChange('ambiente')} />
+                    <input type="text" className="form-control" value={aula.ambiente} onChange={onChange('ambiente')} />
 
                     <a className='btn btn-danger mt-3' href="/">Cancelar</a>
-                    <button className='btn btn-success mt-3 float-end' type='submit'>Salvar</button>
+                    <button className='btn btn-success mt-3 float-end' type='submit'>{ textoBotao }</button>
                 </form>
             </div>
         </>

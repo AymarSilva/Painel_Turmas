@@ -2,9 +2,13 @@
     display: inline-block;
     width: 80%;
     vertical-align: top;
+    margin: 0 !important;
 
     .edit{
         width: 100%;
+    }
+    .bot{
+        margin: 6px !important;
     }
 
     & table[class="tabelaAulas"]{
