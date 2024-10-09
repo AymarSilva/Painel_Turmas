@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 
 import styles from "./TabelaAulas.module.css";
 
-function TabelaAulas({ tipo }) {
+function TabelaAulas({ tipo, onDeleteSuccess }) {
+    
     const [aulas, setAulas] = useState([]);
 
     useEffect(() => {
@@ -48,7 +49,8 @@ function TabelaAulas({ tipo }) {
         }
         else{
             setAulas(aulas.filter(aula => aula.id !== id));
-            alert("Aula deletada");
+            // alert("Aula deletada");
+            onDeleteSuccess();
         }
         } catch (error) {
             throw new Error(error);

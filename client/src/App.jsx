@@ -18,6 +18,7 @@ function App() {
         <Route path='/csv' element={ <AdicaoCSV /> }></Route>
         <Route path='/cadastrarAula' element={ <CadastroAulas /> }></Route>
         <Route path='/gerirAula' element={<GestaoAulas />}></Route>
+        <Route path='/gerirAula/:tipo' element={<GestaoAulas />}></Route>
         <Route path='/editarAula/:id' element={ <EditAula /> }></Route>
       </Routes>
     </Router>

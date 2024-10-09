@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function FormAula({ titulo, textoBotao, handleSubmit, id }) {
+export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo }) {
+    const navegar = useNavigate();
 
     const [aula, setAula] = useState({
         date: '',
@@ -21,7 +23,8 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id }) {
 
     function submit(e) {
         e.preventDefault();
-        handleSubmit(aula)
+        handleSubmit(aula,id);
+        navegar(`/gerirAula${tipo}`);
     };
 
     useEffect(() => {
