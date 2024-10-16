@@ -1,5 +1,17 @@
 {
-  "aulas": [],
+  "aulas": [
+    {
+      "id": "35c6",
+      "date": "2024-10-18",
+      "horaInicio": "12:00",
+      "horaFim": "13:00",
+      "turma": "AIT-DDS8",
+      "instrutor": "Davi Filho",
+      "uniCurricular": "Desenvolvimento de Apostas",
+      "ambiente": "LAB-6165",
+      "chave": null
+    }
+  ],
   "imagens": [
     {
       "id": "1",
