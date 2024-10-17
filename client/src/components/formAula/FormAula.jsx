@@ -24,7 +24,7 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
     function submit(e) {
         e.preventDefault();
         handleSubmit(aula,id);
-        navegar(`/gerirAula${tipo}`);
+        navegar(`/gerirAula`);
     };
 
     useEffect(() => {
