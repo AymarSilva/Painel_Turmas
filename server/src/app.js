@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { criarAula, mostrarAulas } from '../controllers/aulaController.js';
+import { atualizarAulas, criarAula, deletarAula, mostrarAulas } from './controllers/AulaController.js';
 // Calling express
 const app = express();
 const porta = 5000;
@@ -16,6 +16,8 @@ app.use(express.json());
 // Standard route for test API
 app.get('/aulas', mostrarAulas);
 app.post('/aulas', criarAula);
+app.put('/aulas/:id', atualizarAulas);
+app.delete('/aulas/:id', deletarAula);
 
 // Starting API and logging the port which servers running
 app.listen(porta, () => console.log(`server is running on ${porta}`));
