@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { atualizarAulas, criarAula, deletarAula, mostrarAulas } from './controllers/AulaController.js';
+import { atualizarAulas, criarAula, deletarAula, mostrarAulas, mostrarAulasId } from './controllers/AulaController.js';
 // Calling express
 const app = express();
 const porta = 5000;
@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Standard route for test API
 app.get('/aulas', mostrarAulas);
+app.get('/aulas/:id', mostrarAulasId);
 app.post('/aulas', criarAula);
 app.put('/aulas/:id', atualizarAulas);
 app.delete('/aulas/:id', deletarAula);

@@ -1,4 +1,4 @@
-import { createAula, deleteAula, showAula, updateAula } from "../models/AulaModel.js";
+import { createAula, deleteAula, showAula, showAulaId, updateAula } from "../models/AulaModel.js";
 
 export async function criarAula(req, res) {
     console.log("AulaController/criarAula");
@@ -19,6 +19,16 @@ export async function mostrarAulas(req, res) {
         res.status(statusCode).json(resposta);
     } catch (error) {
         console.log("Erro em AulaController: ", error);
+        res.status(500).json(error);
+    }
+};
+
+export async function mostrarAulasId( req, res ) {
+    const { id } = req.params;
+    try {
+        const [statusCode, retorno] = await showAulaId(id);
+        res.status(200).json(retorno);
+    } catch (error) {
         res.status(500).json(error);
     }
 };

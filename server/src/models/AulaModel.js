@@ -35,6 +35,24 @@ export async function createAula(aula) {
   };
 };
 
+export async function showAulaId(id) {
+  const conexao = mysql.createPool(db);
+
+  console.log("mostrando uma aula");
+
+  const sql = `SELECT * FROM aulas where idpainel = ?`;
+
+  const params = [ id ];
+
+  try {
+    const [ retorno ] = await conexao.query( sql, params );
+    return [ 200, retorno[0] ];
+  } catch (error) {
+    console.log(error);
+    return [ 500, error ]
+  };
+};
+
 export async function updateAula(aula, id) {
   const conexao = mysql.createPool(db);
 

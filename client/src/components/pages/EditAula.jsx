@@ -8,6 +8,7 @@ function EditAula() {
 
   async function editAula( infoAula, id ) {
     try {
+      console.log('Aula sendo edit: ',infoAula);
       const resposta = await fetch(`http://localhost:5000/aulas/${id}`,{
         method: 'PUT',
         headers: {

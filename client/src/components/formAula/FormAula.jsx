@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo }) {
     const navegar = useNavigate();
+    const edit = useRef(null);
 
     const [aula, setAula] = useState({
         date: '',
@@ -23,29 +24,37 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
 
     function submit(e) {
         e.preventDefault();
-        handleSubmit(aula,id);
-        navegar(`/gerirAula`);
+        handleSubmit(aula, id);
+        navegar(`/gerirAula/${tipo}`);
     };
 
     useEffect(() => {
-        if (id){
+        if (id) {
             baixarAula(id)
+        } else {
+            console.log('undefined id');
         }
     }, []);
-        
+
+    async function Correcao() {
+        const inputs = edit.current;
+        console.log(inputs.current[0]);
+        // inputs.current[0]
+    }
 
     async function baixarAula(id) {
         try {
-            const resposta = await fetch(`http://localhost:5000/aulas/${id}`,{
+            console.log('baixarAula: ', id,)
+            const resposta = await fetch(`http://localhost:5000/aulas/${id}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type' : 'application/json'
+                    'Content-Type': 'application/json'
                 }
             });
             if (!resposta.ok) {
                 throw new Error("Erro ao buscar aula");
-            }else{
-                console.log(JSON.stringify(resposta));
+            } else {
+                // Correcao();
             }
         } catch (error) {
             console.log(error);
@@ -55,9 +64,9 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
     return (
         <>
             <div className='container col-sm-12 col-md-6 col-lg-3 mt-3'>
-                <h2 className='text-center'>{ titulo }</h2>
-                <form onSubmit={ submit }>
-                    <label htmlFor="" className="form-label">Data:</label>
+                <h2 className='text-center'>{titulo}</h2>
+                <form ref={edit} onSubmit={submit}>
+                    <label htmlFor="" className="form-label" onClick={() => console.log(edit)}>Data:</label>
                     <input type="date" className="form-control" value={aula.date} onChange={onChange('date')} />
 
                     <label htmlFor="" className="form-label">Hora Inicio:</label>
@@ -79,7 +88,7 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
                     <input type="text" className="form-control" value={aula.ambiente} onChange={onChange('ambiente')} />
 
                     <a className='btn btn-danger mt-3' href="/">Cancelar</a>
-                    <button className='btn btn-success mt-3 float-end' type='submit'>{ textoBotao }</button>
+                    <button className='btn btn-success mt-3 float-end' type='submit'>{textoBotao}</button>
                 </form>
             </div>
         </>
