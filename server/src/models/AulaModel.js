@@ -14,7 +14,6 @@ export async function showAula() {
     console.log("Erro em AulaModel: ", error);
     return [500, error];
   };
-
 };
 
 export async function createAula(aula) {
@@ -72,7 +71,13 @@ export async function updateAula(aula, id) {
 
   try {
     const [ retorno ] = await conexao.query( sql, params );
+
+    if (retorno.affectedRows < 1) {
+      return [ 404, `Aula ${id} não encontrada` ];
+    };
+
     return [ 200, `Aula ${id} Atualizada` ];
+
   } catch (error) {
     console.log(error);
     return [ 500, error ];
@@ -90,7 +95,13 @@ export async function deleteAula(id) {
 
   try {
     const [ retorno ] = await conexao.query( sql, params );
+
+    if (retorno.affectedRows < 1) {
+      return [ 404, `Aula ${id} não encontrada` ];
+    };
+
     return [ 200, `Aula ${id} deletada` ];
+
   } catch (error) {
     console.log(error);
     return [ 500, error ]
