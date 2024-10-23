@@ -1,5 +1,5 @@
 function AbreviaData(props) {
-    const data = new (props.data);
+    const data = new Date(props.data);
     // const ano = data.getFullYear();
     // let mes = data.getMonth()+1;
     // let dia = data.getDate();

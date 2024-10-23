@@ -31,16 +31,8 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
     useEffect(() => {
         if (id) {
             baixarAula(id)
-        } else {
-            console.log('undefined id');
-        }
+        };
     }, []);
-
-    async function Correcao() {
-        const inputs = edit.current;
-        console.log(inputs.current[0]);
-        // inputs.current[0]
-    }
 
     async function baixarAula(id) {
         try {
@@ -54,7 +46,17 @@ export default function FormAula({ titulo, textoBotao, handleSubmit, id, tipo })
             if (!resposta.ok) {
                 throw new Error("Erro ao buscar aula");
             } else {
-                // Correcao();
+                const respostaJSON = await resposta.json();
+                setAula({
+                    date: aula.date,
+                    horaInicio: aula.horaInicio,
+                    horaFim: aula.horaFim,
+                    turma: respostaJSON.turma,
+                    instrutor: respostaJSON.instrutor,
+                    uniCurricular: respostaJSON.uniCurricular,
+                    ambiente: respostaJSON.ambiente,
+                    chave: null,
+                })
             }
         } catch (error) {
             console.log(error);
